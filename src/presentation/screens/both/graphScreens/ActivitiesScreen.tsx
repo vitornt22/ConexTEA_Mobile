@@ -46,7 +46,7 @@ export function ActivitiesScreen({navigation}: any) {
       <View className="mt-5 p-5 items-center rounded-lg elevation-lg bg-white ">
         <ParticipationPieChart data={pieData} />
       </View>
-      <DefaultTitleHeader title={'Tipos de Atividades '} />
+      <DefaultTitleHeader icon={false} title={'Tipos de Atividades '} />
       <View className="my-5 p-5 items-center rounded-lg elevation-lg bg-white ">
         <BarChart
           data={activitiesTypesData}

@@ -4,6 +4,8 @@ import {StatisticCard} from '../../components/statisticCard';
 import {NavigationProp} from '../../navigation/types';
 import {useNavigation} from '@react-navigation/native';
 import {ScrollView} from 'react-native-gesture-handler';
+import {FloatButton} from '../../components/buttons/FloatButton';
+import {theme} from '../../../utils/constants/theme';
 
 export function ProfileTeacherScreen() {
   const navigation = useNavigation<NavigationProp>();
@@ -18,6 +20,14 @@ export function ProfileTeacherScreen() {
         <Image
           className="w-40 h-40 absolute rounded-full z-10 top-[50] left-10"
           source={images.avatar1}
+        />
+        <FloatButton
+          onPress={() => navigation.navigate('Initial')}
+          style={{position: 'absolute', borderRadius: 50, top: 10, right: 10}}
+          title={'Sair'}
+          buttonColor={'white'}
+          textColor={theme.primary}
+          iconName={'right-from-bracket'}
         />
       </View>
       <View className="p-12 absolute bottom-0 self-center bg-white h-[80%] w-[100%] rounded-t-[55]">

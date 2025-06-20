@@ -7,8 +7,11 @@ import {DefaultButton} from '../../../components/buttons/defaultButton';
 import {theme} from '../../../../utils/constants/theme';
 import Icon from '@react-native-vector-icons/fontawesome6';
 import {ConfirmationDialog} from '../../../components/modals/ConfirmationDialog';
+import {InformationModal} from '../../../components/modals/InformationModal';
+import {teacher_check_in_information} from '../../../../utils/constants/information_teacher_test';
 
 export function TeacherActivitieView() {
+  const [modalVisible, setModalVisible] = useState(false);
   const [value, onChangeText] = useState('Useless Multiline Placeholder');
   const [visible, setVisible] = useState(false);
 
@@ -24,6 +27,13 @@ export function TeacherActivitieView() {
   return (
     <CommonFormScreen title={'Registrar Atividades'} button={buttons}>
       <View>
+        <InformationModal
+          text={teacher_check_in_information}
+          modalVisible={{
+            state: modalVisible,
+            setState: setModalVisible,
+          }}
+        />
         <DropdownInput placeholder={'Selecione o aluno'} label="Aluno" />
         <DropdownInput
           placeholder={'Tipo de Atividade'}

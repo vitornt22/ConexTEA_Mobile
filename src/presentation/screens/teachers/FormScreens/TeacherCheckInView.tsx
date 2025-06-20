@@ -8,8 +8,12 @@ import Icon from '@react-native-vector-icons/fontawesome6';
 import {theme} from '../../../../utils/constants/theme';
 import {SaveCheckInModal} from '../../../components/modals/SaveModal';
 import {DropdownInput} from '../../../components/inputs/DropDownInput';
+import {InformationModal} from '../../../components/modals/InformationModal';
+import {teacher_check_in_information} from '../../../../utils/constants/information_teacher_test';
 
 export function TeacherCheckInView() {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const items = [
     {id: 1, name: 'Alegria', image: images.joyEmoji},
     {id: 2, name: 'Raiva', image: images.angerEmoji},
@@ -51,8 +55,18 @@ export function TeacherCheckInView() {
   };
 
   return (
-    <CommonFormScreen title="Check-In Emocional" withCard={false}>
+    <CommonFormScreen
+      title="Check-In Emocional"
+      withCard={false}
+      iconFunction={() => setModalVisible(true)}>
       <View className="flex-1">
+        <InformationModal
+          text={teacher_check_in_information}
+          modalVisible={{
+            state: modalVisible,
+            setState: setModalVisible,
+          }}
+        />
         <SaveCheckInModal
           modalVisible={{
             state: visible,

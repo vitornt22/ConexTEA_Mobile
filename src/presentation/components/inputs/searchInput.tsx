@@ -21,9 +21,11 @@ export function SearchInput({
     <View className="px-4 flex-row items-center rounded-lg bg-[#EEEFEF]">
       <Icon name="magnifying-glass" iconStyle="solid" />
       <TextInput
+        placeholderTextColor={theme.subtitle}
         inputMode={mode as any}
         placeholder={placeholder}
         style={{
+          color: theme.subtitle,
           marginLeft: 10,
           height: 40,
           borderColor: 'black',

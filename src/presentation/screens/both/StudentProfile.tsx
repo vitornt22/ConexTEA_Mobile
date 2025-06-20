@@ -5,6 +5,7 @@ import {theme} from '../../../utils/constants/theme';
 import {StudentProfileTabView} from './StudentTabView';
 import {NavigationProp} from '../../navigation/types';
 import {useNavigation} from '@react-navigation/native';
+import {evolutionReportText} from '../../../data/mockups/evolutionReportText';
 
 export function StudentProfile() {
   const navigation = useNavigation<NavigationProp>();
@@ -30,6 +31,7 @@ export function StudentProfile() {
           />
           <View className="w-3" />
           <FloatButton
+            onPress={() => navigation.navigate('chatPage')}
             title={'Chat'}
             buttonColor={theme.secondary}
             textColor={'white'}
@@ -47,7 +49,14 @@ export function StudentProfile() {
             <Text className="text-sm text-subtitle">Feminino</Text>
             <Text className="text-sm text-subtitle ">Feminino</Text>
           </View>
-          <Text className="underline font-bold text-sm text-primary mb-2">
+          <Text
+            onPress={() => {
+              navigation.navigate('customReport', {
+                text: evolutionReportText,
+                reportName: 'Relatório de Aluno',
+              });
+            }}
+            className="underline font-bold text-sm text-primary mb-2">
             Gerar Relatório Personalizado
           </Text>
           <Text className="text-sm text-subtitle ">

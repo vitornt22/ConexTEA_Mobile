@@ -16,9 +16,11 @@ export function ChatInput({
   return (
     <View className="px-4 rounded-full  flex-row items-center bg-blue bg-[#EEEFEF]    h-[52] ">
       <TextInput
+        placeholderTextColor={theme.subtitle}
         inputMode={mode as any}
         placeholder={placeholder}
         style={{
+          color: theme.subtitle,
           marginLeft: 10,
           height: 52,
           borderColor: 'black',

@@ -39,7 +39,7 @@ export function BottomNavigationParentsScreen() {
       key: 'ProfileParents',
       title: 'Perfil',
       focusedIcon: ({color, focused}: any) =>
-        getNavigationIcon(focused, color, 'useruser'),
+        getNavigationIcon(focused, color, 'user'),
     },
   ]);
 

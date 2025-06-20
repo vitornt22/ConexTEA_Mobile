@@ -24,6 +24,7 @@ import {TeacherActivitieView} from '../screens/teachers/FormScreens/TeacherActiv
 import {StudentProfile} from '../screens/both/StudentProfile';
 import {TeacherActionView} from '../screens/teachers/FormScreens/TeacherActionView';
 import TeacherAssessmentScreen from '../screens/teachers/FormScreens/TeacherAssessmentScreen';
+import {ChatPageScreen} from '../screens/both/ChatPageScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -51,15 +52,27 @@ export function InitialStackNavigation() {
         component={BottomNavigationTeacherScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="chatParent" component={ParentsChatScreen} />
-      <Stack.Screen name="chatTeachers" component={TeachersChatScreen} />
+      <Stack.Screen
+        name="chatParent"
+        component={ParentsChatScreen}
+        options={{title: 'Professores'}}
+      />
+      <Stack.Screen
+        name="chatTeachers"
+        component={TeachersChatScreen}
+        options={{title: 'Pais/Responsáveis'}}
+      />
+      <Stack.Screen
+        name="chatPage"
+        component={ChatPageScreen}
+        options={{title: 'Chat'}}
+      />
 
       <Stack.Screen
         name="chatbot"
         component={ChatBotScreen}
         options={{
           title: 'Suporte I.A',
-          headerRight: () => <ChatBotIconButton />,
         }}
       />
       <Stack.Screen

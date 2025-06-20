@@ -2,10 +2,18 @@ import {Image, Pressable, Text, View} from 'react-native';
 import {images} from '../../../utils/constants/images';
 import Icon from '@react-native-vector-icons/fontawesome6';
 import {theme} from '../../../utils/constants/theme';
+import {useNavigation} from '@react-navigation/native';
+import {NavigationProp} from '../../navigation/types';
 
 export function ChatUserListTile({item}: any) {
+  const navigation = useNavigation<NavigationProp>();
+
   return (
-    <Pressable className="py-1 flex-row items-center justify-between">
+    <Pressable
+      onPress={() => {
+        navigation.navigate('chatPage');
+      }}
+      className="py-1 flex-row items-center justify-between">
       <View className="flex-row items-center border-b py-2 border-b-gray-200 ">
         <View
           className=" w-14 h-14 items-center justify-center  p-4 rounded-[500] mr-2"

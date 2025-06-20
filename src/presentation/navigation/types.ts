@@ -15,7 +15,10 @@ export type RootStackParamList = {
   PEI: undefined;
   activities: undefined;
   periodicReports: undefined;
-  customReport: undefined;
+  customReport: {
+    text:string, 
+    reportName:string
+  };
   AllReviews: {type: string};
   CustomReportScreen: {
       text: string;
@@ -41,4 +44,5 @@ export type RootStackParamList = {
   teacherActivitieView:undefined
   teacherActionView:undefined
   studentProfile:undefined
+  chatPage:undefined
 };

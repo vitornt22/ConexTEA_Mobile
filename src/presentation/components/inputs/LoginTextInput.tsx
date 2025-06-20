@@ -28,6 +28,7 @@ export function LoginTextInput({
         inputMode={mode as any}
         placeholder={placeholder}
         style={{
+          color: theme.subtitle,
           marginLeft: 10,
           height: 52,
           borderColor: 'black',

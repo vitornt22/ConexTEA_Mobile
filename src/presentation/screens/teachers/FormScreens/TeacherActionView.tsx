@@ -7,8 +7,12 @@ import Icon from '@react-native-vector-icons/fontawesome6';
 import {theme} from '../../../../utils/constants/theme';
 import {SaveActionModal} from '../../../components/modals/SaveActionModal';
 import {DropdownInput} from '../../../components/inputs/DropDownInput';
+import {InformationModal} from '../../../components/modals/InformationModal';
+import {teacher_action_information} from '../../../../utils/constants/information_teacher_test';
 
 export function TeacherActionView() {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const items = [
     {id: 1, name: 'Ir ao banheiro', image: images.bathroom},
     {id: 2, name: 'Comer/Lanchar', image: images.food},
@@ -48,8 +52,18 @@ export function TeacherActionView() {
   };
 
   return (
-    <CommonFormScreen title="Mapear Desejos" withCard={false}>
+    <CommonFormScreen
+      title="Mapear Desejos"
+      withCard={false}
+      iconFunction={() => setModalVisible(true)}>
       <View className="flex-1">
+        <InformationModal
+          text={teacher_action_information}
+          modalVisible={{
+            state: modalVisible,
+            setState: setModalVisible,
+          }}
+        />
         <SaveActionModal
           modalVisible={{
             state: visible,

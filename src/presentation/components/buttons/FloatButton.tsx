@@ -8,19 +8,21 @@ type FloatButtonProps = {
   textColor: string;
   iconName: string;
   onPress?: () => void;
+  style?: {};
 };
 export function FloatButton({
   title,
   buttonColor,
   textColor = theme.primary,
   iconName,
+  style,
   onPress,
 }: FloatButtonProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
       className="justify-center mb-4  rounded-md elevation-lg px-5 w-[100] h-[32]"
-      style={{backgroundColor: buttonColor}}>
+      style={{backgroundColor: buttonColor, ...style}}>
       <View className="flex-row justify-between items-center ">
         <Text
           style={{color: textColor}}

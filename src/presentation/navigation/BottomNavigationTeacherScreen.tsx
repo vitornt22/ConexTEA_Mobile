@@ -35,7 +35,7 @@ export function BottomNavigationTeacherScreen() {
       key: 'profileTeacher',
       title: 'Perfil',
       focusedIcon: ({color, focused}: any) =>
-        getNavigationIcon(focused, color, 'person'),
+        getNavigationIcon(focused, color, 'user'),
     },
   ]);
 

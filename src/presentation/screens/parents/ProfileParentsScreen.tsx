@@ -3,8 +3,15 @@ import {Image, Text, View} from 'react-native';
 import {images} from '../../../utils/constants/images';
 import {StatisticCard} from '../../components/statisticCard';
 import Icon from '@react-native-vector-icons/fontawesome6';
+import {DefaultButton} from '../../components/buttons/defaultButton';
+import {theme} from '../../../utils/constants/theme';
+import {useNavigation} from '@react-navigation/native';
+import {NavigationProp} from '../../navigation/types';
+import {FloatButton} from '../../components/buttons/FloatButton';
 
-export function ProfileParentsScreen({navigation}: any) {
+export function ProfileParentsScreen() {
+  const navigation = useNavigation<NavigationProp>();
+
   return (
     <View className="flex-1 bg-white">
       <View className="bg-blue-500 h-[100%]">
@@ -16,8 +23,16 @@ export function ProfileParentsScreen({navigation}: any) {
           className="w-40 h-40 absolute rounded-full z-10 top-[50] left-10"
           source={images.avatar1}
         />
+        <FloatButton
+          onPress={() => navigation.navigate('Initial')}
+          style={{position: 'absolute', borderRadius: 50, top: 10, right: 10}}
+          title={'Sair'}
+          buttonColor={'white'}
+          textColor={theme.primary}
+          iconName={'right-from-bracket'}
+        />
       </View>
-      <View className="p-12 absolute bottom-0 self-center bg-white h-[80%] w-[100%] rounded-t-[55]">
+      <View className="px-6 py-12 absolute bottom-0 self-center bg-white h-[80%] w-[100%] rounded-t-[55]">
         <View className="top-10">
           <Text className=" text text-primary font-bold text-2xl">
             Antonia Maria de Sousa
@@ -29,13 +44,16 @@ export function ProfileParentsScreen({navigation}: any) {
               Nascimento: 24/08/1968
             </Text>
             <Text className="text-start text-subtitle">
+              Contato: (89) 99922-222
+            </Text>
+            <Text className="text-start text-subtitle">
               Email: Mariasousa@gmail.com
             </Text>
             <Text className="text-start text-subtitle">
               Endereço: Rua Antonio Lisboa , 267
             </Text>
           </View>
-          <View className="flex-row justify-between">
+          <View className=" flex-row justify-between space-x-1">
             <StatisticCard
               count={20}
               title={'Interações'}
@@ -50,17 +68,14 @@ export function ProfileParentsScreen({navigation}: any) {
               iconType="solid"
             />
           </View>
-          <TouchableOpacity className=" rounded-lg bg-primaryRed p-5 flex-row justify-between">
-            <Text className="text-white text-2xl font-bold">
-              Perfil da Valentina
-            </Text>
-            <Icon
-              name="chevron-right"
-              color="white"
-              iconStyle="solid"
-              size={20}
-            />
-          </TouchableOpacity>
+          <DefaultButton
+            icon={<Icon name="user" color={'white'} />}
+            color={theme.primary}
+            placeholder={'Perfil do Filho'}
+            buttonFunction={() => {
+              navigation.navigate('studentProfile');
+            }}
+          />
         </View>
       </View>
     </View>

@@ -20,6 +20,20 @@ export function LoginScreen({navigation}: any) {
   const teacherText =
     'Faça o login para registrar e acompanhar a evolução dos seus alunos com TEA';
 
+  const teacher = (
+    <Image
+      className="w-[100%] h-[40%] opacity-25"
+      source={require('../../../../assets/images/banners/teacher.png')}
+    />
+  );
+
+  const family = (
+    <Image
+      className="w-[100%] h-[40%] opacity-25"
+      source={require('../../../../assets/images/banners/family.jpg')}
+    />
+  );
+
   return (
     <View className="flex-1 bg-white">
       <RequestNewPassword
@@ -29,10 +43,7 @@ export function LoginScreen({navigation}: any) {
         }}
       />
       <View className="bg-blue-500 h-[100%]">
-        <Image
-          className="w-[100%] h-[40%] opacity-25"
-          source={require('../../../../assets/images/banners/teacher.png')}
-        />
+        {screenRoute === 'teacher' ? teacher : family}
         <View className="absolute">
           <TouchableOpacity
             onPress={() => navigation.goBack()}

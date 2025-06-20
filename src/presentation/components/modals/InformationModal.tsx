@@ -1,7 +1,8 @@
 import {Modal, Alert, View, Text, TouchableOpacity} from 'react-native';
 import {theme} from '../../../utils/constants/theme';
 import Icon from '@react-native-vector-icons/fontawesome6';
-import {AudioReportButton} from '../ReportAudioButton';
+import {ScrollView} from 'react-native-gesture-handler';
+import {DefaultButton} from '../buttons/defaultButton';
 
 type InformationModalProps = {
   text: string;
@@ -10,6 +11,7 @@ type InformationModalProps = {
     setState: React.Dispatch<React.SetStateAction<boolean>>;
   };
 };
+
 export function InformationModal({modalVisible, text}: InformationModalProps) {
   return (
     <Modal
@@ -20,10 +22,14 @@ export function InformationModal({modalVisible, text}: InformationModalProps) {
         Alert.alert('Modal has been closed.');
         modalVisible.setState(false);
       }}>
-      {/* Container que centraliza o modal */}
-      <View className="flex-1 justify-center items-center bg-black/30">
-        <View className="bg-white w-[90%] p-7 py-12 rounded-3xl elevation-lg ">
-          <View className="flex-row items-center mb-5">
+      <View className="justify-center items-center bg-black/30 flex-1">
+        <View
+          className="bg-white rounded-3xl elevation-lg w-[80%] p-5"
+          style={{
+            maxHeight: 600,
+            minHeight: 200,
+          }}>
+          <View className="flex-row items-center mb-3">
             <Icon
               onPress={() => {
                 modalVisible.setState(false);
@@ -33,24 +39,24 @@ export function InformationModal({modalVisible, text}: InformationModalProps) {
               iconStyle="solid"
               size={20}
             />
-            <Text className="text-2xl ml-3  text-primary font-bold ">
+            <Text className="text-2xl ml-3 text-primary font-bold">
               Informações
             </Text>
           </View>
-          <Text>{text}</Text>
-          <TouchableOpacity className="h-10 items-center mt-3    flex-row ">
-            <Icon
-              style={{marginRight: 10}}
-              size={15}
-              color={theme.blueText}
-              name="play"
-              iconStyle="solid"
-            />
 
-            <Text className="  text-lg underline font-bold text-blueText">
-              Informações por audio
-            </Text>
-          </TouchableOpacity>
+          {/* Scroll apenas no conteúdo interno */}
+          <ScrollView
+            style={{flexGrow: 0}}
+            contentContainerStyle={{paddingBottom: 10}}>
+            <Text>{text}</Text>
+          </ScrollView>
+          <DefaultButton
+            style={{borderRadius: 50}}
+            icon={<Icon name="play" color={'white'} iconStyle="solid" />}
+            color={theme.primary}
+            placeholder={'Ouvir Audio'}
+            buttonFunction={() => {}}
+          />
         </View>
       </View>
     </Modal>

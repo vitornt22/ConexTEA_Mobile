@@ -32,7 +32,13 @@ export function ConfirmationDialog({
   };
   return (
     <View>
-      <Dialog.Container visible={dialogState.state}>
+      <Dialog.Container
+        visible={dialogState.state}
+        contentStyle={{
+          backgroundColor: 'white',
+          borderRadius: 10,
+          padding: 20,
+        }}>
         <Dialog.Title style={{color: theme.primary}}>{title}</Dialog.Title>
         <Dialog.Description>{subtitle}</Dialog.Description>
         <Dialog.Button label="Cancelar" onPress={hideDialog} />

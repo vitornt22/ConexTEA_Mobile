@@ -8,6 +8,8 @@ import {DefaultButton} from '../../../components/buttons/defaultButton';
 import Icon from '@react-native-vector-icons/fontawesome6';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '../../../navigation/types';
+import {InformationModal} from '../../../components/modals/InformationModal';
+import {teacher_assessment_information} from '../../../../utils/constants/information_teacher_test';
 
 type TipoAvaliacao = 'comportamento' | 'habilidades';
 type AvaliacaoState = Record<string, number>;
@@ -32,6 +34,8 @@ const criteriosHabilidades: string[] = [
 
 export default function TeacherAssessmentScreen() {
   const [comportamento, setComportamento] = useState<AvaliacaoState>({});
+  const [modalVisible, setModalVisible] = useState(false);
+
   const [habilidades, setHabilidades] = useState<AvaliacaoState>({});
   const navigation = useNavigation<NavigationProp>();
 
@@ -43,7 +47,17 @@ export default function TeacherAssessmentScreen() {
 
   return (
     <ScrollView contentContainerStyle={{padding: 16}} className="space-y-6">
-      <DefaultTitleHeader title="Avaliação" />
+      <InformationModal
+        text={teacher_assessment_information}
+        modalVisible={{
+          state: modalVisible,
+          setState: setModalVisible,
+        }}
+      />
+      <DefaultTitleHeader
+        title="Avaliação"
+        iconFunction={() => setModalVisible(true)}
+      />
 
       <View className="bg-white mt-3 p-4 rounded-xl elevation-lg mb-3">
         <DropdownInput placeholder={'Selecione o aluno'} label="Aluno" />
