@@ -7,6 +7,7 @@ import {getActivityTypeDescription} from '../../../../utils/constants/activity_v
 import {RatingIndicator} from '../../../components/RatingIndicator';
 import {getImage} from '../../../../utils/constants/getImages';
 import {getEmotionByNumber} from '../../../../utils/constants/checkIn_descriptions';
+import {ReviewInformationCard} from '../../../components/ReviewInformationCard';
 
 type CheckInViewScreenRouteProp = RouteProp<RootStackParamList, 'checkInView'>;
 
@@ -40,25 +41,8 @@ export default function CheckInViewScreen() {
       </View>
 
       {/* Informations Card */}
-      <View className="bg-white elevation-lg rounded-lg p-5">
-        <Image className="absolute right-0 w-40 h-40" source={image} />
+      <ReviewInformationCard item={item} />
 
-        <ReviewItemRow
-          iconName={'book-open-reader'}
-          title={'Disciplina'}
-          text={item?.subjectName}
-        />
-        <ReviewItemRow
-          iconName={'user'}
-          title={'Disciplina'}
-          text={item?.subjectName}
-        />
-        <ReviewItemRow
-          iconName={'calendar-days'}
-          title={'Data'}
-          text={formatDate(item?.date)}
-        />
-      </View>
       <View className="bg-white mt-4  elevation-lg rounded-lg p-5">
         <View className="items-start">
           <Text className="text-xl  font-bold text-primary mb-1">

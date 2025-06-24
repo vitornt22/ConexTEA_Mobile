@@ -1,16 +1,13 @@
 import React, {useState} from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
 import {BottomNavigation, Provider} from 'react-native-paper';
-import Icon from '@react-native-vector-icons/fontawesome6';
 import {theme} from '../../utils/constants/theme';
 import {HomeParentsScreen} from '../screens/parents/HomeParentsScreen';
 import {ReportsScreen} from '../screens/parents/ReportsScreen';
 import {NotificationsScreen} from '../screens/parents/NotificationsScreen';
 import {ProfileParentsScreen} from '../screens/parents/ProfileParentsScreen';
-import {HomeParentsHeader} from '../components/headers/homeParentsHeader';
 import {BottomBarDefaultHeader} from '../components/headers/bottomBarDefaultHeader';
-import {DefaultTitleHeader} from '../components/headers/defaultTitleHeader';
 import {getNavigationIcon} from './getNavigationIcon';
+import {View} from 'react-native';
 
 export function BottomNavigationParentsScreen() {
   const [index, setIndex] = useState(0);
@@ -52,7 +49,7 @@ export function BottomNavigationParentsScreen() {
 
   return (
     <Provider>
-      {index == 0 ? <HomeParentsHeader /> : <BottomBarDefaultHeader />}
+      {index == 0 ? null : <BottomBarDefaultHeader />}
       <BottomNavigation
         navigationState={{index, routes}}
         onIndexChange={setIndex}

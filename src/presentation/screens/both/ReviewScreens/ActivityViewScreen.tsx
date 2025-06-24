@@ -5,6 +5,7 @@ import {ReviewItemRow} from '../../../components/ReviewItemRow';
 import {formatDate} from '../../../../utils/helpers/format_date_helper';
 import {getActivityTypeDescription} from '../../../../utils/constants/activity_view_helper';
 import {RatingIndicator} from '../../../components/RatingIndicator';
+import {ReviewInformationCard} from '../../../components/ReviewInformationCard';
 
 type ActivityViewScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -14,10 +15,9 @@ type ActivityViewScreenRouteProp = RouteProp<
 export default function ActivityViewScreen() {
   const route = useRoute<ActivityViewScreenRouteProp>();
   const {item} = route.params;
-  console.log(item.othersInformations);
 
   const activityInfo = getActivityTypeDescription(
-    item.othersInformations.activityType,
+    Number(item.othersInformations.activityType),
   );
 
   return (
@@ -28,30 +28,15 @@ export default function ActivityViewScreen() {
       {/* Header */}
       <View className="mb-6 items-start">
         <Text className="text-3xl font-bold text-primary mb-1">
-          Avaliação do Aluno
+          Atividade Registrada
         </Text>
         <Text className="text-base text-slate-600 text-center">
           Registro de Atividade Realizada
         </Text>
       </View>
       {/* Informations Card */}
-      <View className="bg-white elevation-lg rounded-lg p-5">
-        <ReviewItemRow
-          iconName={'book-open-reader'}
-          title={'Disciplina'}
-          text={item?.subjectName}
-        />
-        <ReviewItemRow
-          iconName={'user'}
-          title={'Disciplina'}
-          text={item?.subjectName}
-        />
-        <ReviewItemRow
-          iconName={'calendar-days'}
-          title={'Data'}
-          text={formatDate(item?.date)}
-        />
-      </View>
+      <ReviewInformationCard item={item} />
+
       <View className="bg-white mt-4  elevation-lg rounded-lg p-5">
         <View className="mb-6 items-start">
           <Text className="text-xl  font-bold text-primary mb-1">

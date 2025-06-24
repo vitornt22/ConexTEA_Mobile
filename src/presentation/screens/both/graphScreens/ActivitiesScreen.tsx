@@ -1,4 +1,4 @@
-import {ScrollView, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {BarChart} from 'react-native-gifted-charts';
 import {DefaultTitleHeader} from '../../../components/headers/defaultTitleHeader';
 import {
@@ -10,25 +10,22 @@ import {StudentHeader} from '../../../components/headers/StudentHeader';
 import {GenerateReportButton} from '../../../components/GenerationReportButton';
 import {evolutionReportText} from '../../../../data/mockups/evolutionReportText';
 import {InformationModal} from '../../../components/modals/InformationModal';
-import {
-  activitiesInformation,
-  evolutionInformation,
-} from '../../../../utils/constants/information_texts';
+import {activitiesInformation} from '../../../../utils/constants/information_texts';
 import {useState} from 'react';
+import {ActivityScreenHook} from '../../../hooks/ActivityScreenHook';
+import LoadingScreen from '../../../components/LoadingScreen';
+import {studenHeaderMock} from '../../../../data/mockups/graphs';
 
 export function ActivitiesScreen({navigation}: any) {
-  const [modalVisible, setModalVisible] = useState(false);
+  const {data, loading, studentId, modalVisible} = ActivityScreenHook();
 
-  return (
+  const contentView = (
     <ScrollView className="bg-white p-5">
       {/* Cabeçalho */}
-      <StudentHeader />
+      <StudentHeader student={data?.student || studenHeaderMock} />
       <InformationModal
         text={activitiesInformation}
-        modalVisible={{
-          state: modalVisible,
-          setState: setModalVisible,
-        }}
+        modalVisible={modalVisible}
       />
 
       <GenerateReportButton
@@ -40,27 +37,28 @@ export function ActivitiesScreen({navigation}: any) {
       />
       {/* header Title  */}
       <DefaultTitleHeader
-        iconFunction={() => setModalVisible(true)}
+        iconFunction={() => modalVisible.setState(true)}
         title={'Participação nas Atividades'}
       />
       <View className="mt-5 p-5 items-center rounded-lg elevation-lg bg-white ">
-        <ParticipationPieChart data={pieData} />
+        <ParticipationPieChart data={data?.pieData || []} />
       </View>
       <DefaultTitleHeader icon={false} title={'Tipos de Atividades '} />
       <View className="my-5 p-5 items-center rounded-lg elevation-lg bg-white ">
         <BarChart
-          data={activitiesTypesData}
+          data={data?.typeActivityChart}
           barWidth={15}
           height={400}
           spacing={20}
           hideYAxisText={false}
           yAxisThickness={1}
           xAxisThickness={1}
-          maxValue={100}
+          maxValue={30}
           showGradient
         />
       </View>
       <View className="h-24"></View>
     </ScrollView>
   );
+  return loading === true ? <LoadingScreen /> : contentView;
 }

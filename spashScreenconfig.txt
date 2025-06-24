@@ -1,0 +1,5 @@
+yarn react-native-bootsplash generate src/assets/svgs/logo.svg \
+  --platforms=android \
+  --background=FFFFFF \
+  --logo-width=100 \
+  

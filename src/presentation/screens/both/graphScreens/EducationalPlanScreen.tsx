@@ -8,6 +8,7 @@ import {InformationModal} from '../../../components/modals/InformationModal';
 import {useState} from 'react';
 import {peiInformation} from '../../../../utils/constants/information_texts';
 import {TeacherObservationListTile} from '../../../components/listTiles/TeacherObservationListTile';
+import {studenHeaderMock} from '../../../../data/mockups/graphs';
 
 export function EducationalPlanScreen({navigation}: any) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -26,7 +27,7 @@ export function EducationalPlanScreen({navigation}: any) {
         className="text-primary underline text-lg mb-3">
         Entenda o que é o PEI
       </Text>
-      <StudentHeader />
+      <StudentHeader student={studenHeaderMock} />
       <AudioReportButton bg={theme.primary} style={{marginBottom: -10}} />
       <ScrollView />
       <View className="bg-white rounded-lg elevation-lg mt-5 p-5">

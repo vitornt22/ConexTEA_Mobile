@@ -4,26 +4,30 @@ import Icon from '@react-native-vector-icons/fontawesome6';
 import {theme} from '../../../utils/constants/theme';
 import {NavigationProp} from '../../navigation/types';
 import {useNavigation} from '@react-navigation/native';
+import {Student} from '../../../models/ParentModel';
+type StudentsListTileProps = {
+  student: Student;
+};
 
-export function StudentsListTile({item}: any) {
+export function StudentsListTile({student}: StudentsListTileProps) {
   const navigation = useNavigation<NavigationProp>();
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('studentProfile')}
+      onPress={() => navigation.navigate('studentProfile', {student: student})}
       className="py-1 flex-row items-center justify-between">
       <View className="flex-row items-center border-b py-2 border-b-gray-200 ">
         <View className=" w-14 h-14 items-center justify-center  p-4 rounded-[500] mr-2">
           <Image className="w-12 h-12" source={images.avatar1} />
         </View>
         <View>
-          <Text className="text-md font-semibold">{item.name}</Text>
+          <Text className="text-md font-semibold">{student.name}</Text>
           <View className="flex-row ">
             <Text className="mt-1 text-xs text-subtitle mr-3">
-              {item.class}
+              {student.school_class}
             </Text>
             <Text className="mt-1 text-xs text-subtitle">
-              Nivel: {item.autismLevel}
+              Nivel: {student.autism_level}
             </Text>
           </View>
         </View>

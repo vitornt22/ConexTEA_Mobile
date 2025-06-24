@@ -34,7 +34,7 @@ export function StudentsScreen() {
         data={filteredChats}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item}) => {
-          return <StudentsListTile item={item} />;
+          return <StudentsListTile student={item} />;
         }}
       />
     </View>

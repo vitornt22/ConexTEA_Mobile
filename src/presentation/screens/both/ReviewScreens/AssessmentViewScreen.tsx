@@ -4,6 +4,7 @@ import {RootStackParamList} from '../../../navigation/types';
 import {ReviewItemRow} from '../../../components/ReviewItemRow';
 import {formatDate} from '../../../../utils/helpers/format_date_helper';
 import {RatingIndicator} from '../../../components/RatingIndicator';
+import {ReviewInformationCard} from '../../../components/ReviewInformationCard';
 
 type AssessmentViewScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -48,23 +49,7 @@ export default function AssessmentViewScreen() {
         </Text>
       </View>
       {/* Informations Card */}
-      <View className="bg-white elevation-lg rounded-lg p-5">
-        <ReviewItemRow
-          iconName={'book-open-reader'}
-          title={'Disciplina'}
-          text={item?.subjectName}
-        />
-        <ReviewItemRow
-          iconName={'user'}
-          title={'Disciplina'}
-          text={item?.subjectName}
-        />
-        <ReviewItemRow
-          iconName={'calendar-days'}
-          title={'Data'}
-          text={formatDate(item?.date)}
-        />
-      </View>
+      <ReviewInformationCard item={item} />
       <View className="bg-white mt-4  elevation-lg rounded-lg p-5">
         <View className="mb-6 items-start">
           <Text className="text-xl  font-bold text-primary mb-1">

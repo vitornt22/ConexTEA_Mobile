@@ -1,51 +1,57 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {ActivityIndicator, Text, View} from 'react-native';
 import {CardsCarousel} from '../../components/CardsCarousel';
 import {StatisticCard} from '../../components/statisticCard';
 import {ScrollView} from 'react-native-gesture-handler';
-import {InsideOutListTile} from '../../components/listTiles/insideOutListTile';
-import {insideOutData} from '../../../data/mockups/rankData';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {useNavigation} from '@react-navigation/native';
-import {NavigationProp, RootStackParamList} from '../../navigation/types';
+import {useParentInitialScreenHook} from '../../hooks/parentInitialScreenHook';
+import {HomeParentsHeader} from '../../components/headers/homeParentsHeader';
+import LoadingScreen from '../../components/LoadingScreen';
+import {InsideOutRankInitial} from '../both/graphScreens/InsideOutRankInitial';
+import {theme} from '../../../utils/constants/theme';
 
 export function HomeParentsScreen() {
-  const navigation = useNavigation<NavigationProp>();
+  const {data, loading, navigation} = useParentInitialScreenHook();
 
-  return (
-    <ScrollView className="px-7 bg-white">
-      <Text className="mt-3 text-2xl text-blueText font-semibold">
-        Bem Vinda, Mãe da Valentina
-      </Text>
-      <CardsCarousel type="parents" navigation={navigation} />
-      <View>
-        <Text className="mt-3 text-2xl text-blueText font-semibold ">
-          Estatísticas
-        </Text>
-        <View className="flex-row justify-between">
-          <StatisticCard
-            count={20}
-            title={'Atividades'}
-            iconName={'chart-bar'}
-          />
-          <StatisticCard count={100} title={'Avaliações'} iconName={'star'} />
-          <StatisticCard
-            count={20}
-            title={'Check-Ins'}
-            iconName={'face-smile'}
-          />
-        </View>
-      </View>
-      <View>
+  const contentScreen = (
+    <View style={{flex: 1}}>
+      {/* Header fixo */}
+      <HomeParentsHeader
+        name={data?.student_name}
+        year={data?.current_year}
+        schoolClass={data?.school_student_class}
+      />
+      <ScrollView className="px-7 bg-white">
         <Text className="mt-3 text-2xl text-blueText font-semibold">
-          Divertidamente de Valentina
+          Bem Vinda, {data?.relationship_degree} {data?.preposition}{' '}
+          {data?.student_name}
         </Text>
-        <ScrollView className="mt-4 ">
-          {insideOutData.map(item => (
-            <InsideOutListTile key={item.id} item={item} />
-          ))}
-        </ScrollView>
-      </View>
-    </ScrollView>
+        <CardsCarousel type="parents" navigation={navigation} />
+        <View>
+          <Text className="mt-3 text-2xl text-blueText font-semibold ">
+            Estatísticas
+          </Text>
+          <View className="flex-row justify-between">
+            <StatisticCard
+              count={data?.total_activities || 0}
+              title={'Atividades'}
+              iconName={'chart-bar'}
+            />
+            <StatisticCard
+              count={data?.total_assessments || 0}
+              title={'Avaliações'}
+              iconName={'star'}
+            />
+            <StatisticCard
+              count={data?.total_checkins || 0}
+              title={'Check-Ins'}
+              iconName={'face-smile'}
+            />
+          </View>
+        </View>
+        <InsideOutRankInitial item={data?.emotions} />
+      </ScrollView>
+    </View>
   );
+
+  return loading == true ? <LoadingScreen /> : contentScreen;
 }

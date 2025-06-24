@@ -1,8 +1,18 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {PieChart} from 'react-native-gifted-charts';
+import {
+  ParticipationData,
+  StudentActivitiesSummary,
+} from '../../../models/Graphs';
 
-export default function ParticipationPieChart({data}: any) {
+interface ParticipationPieChartProps {
+  data: ParticipationData[];
+}
+
+export default function ParticipationPieChart({
+  data,
+}: ParticipationPieChartProps) {
   return (
     <View className="items-center p-5 ">
       <Text className="text-lg font-bold mb-5">
@@ -24,7 +34,7 @@ export default function ParticipationPieChart({data}: any) {
 
       <View className="mt-6 space-y-2">
         {data.map((item: any, index: number) => (
-          <View key={index} className="flex-row items-center ">
+          <View key={index} className="flex-row items -center ">
             <View
               className="w-4 h-4 rounded"
               style={{backgroundColor: item.color}}

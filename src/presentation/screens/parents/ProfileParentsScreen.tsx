@@ -8,11 +8,13 @@ import {theme} from '../../../utils/constants/theme';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '../../navigation/types';
 import {FloatButton} from '../../components/buttons/FloatButton';
+import {useProfileParentsScreenHook} from '../../hooks/ProfileParentsScreenHook';
+import LoadingScreen from '../../components/LoadingScreen';
+import {getRelationshipDegreeLabel} from '../../../utils/helpers/get_relationship_name';
 
 export function ProfileParentsScreen() {
-  const navigation = useNavigation<NavigationProp>();
-
-  return (
+  const {data, loading, navigation, studentId} = useProfileParentsScreenHook();
+  const contentScreen = (
     <View className="flex-1 bg-white">
       <View className="bg-blue-500 h-[100%]">
         <Image
@@ -35,22 +37,26 @@ export function ProfileParentsScreen() {
       <View className="px-6 py-12 absolute bottom-0 self-center bg-white h-[80%] w-[100%] rounded-t-[55]">
         <View className="top-10">
           <Text className=" text text-primary font-bold text-2xl">
-            Antonia Maria de Sousa
+            {data?.name}
           </Text>
-          <Text className="text-lg ">Mãe de Valentina Maria da Silva</Text>
+          <Text className="text-lg">
+            {getRelationshipDegreeLabel(data?.relationship_degree || '')}
+            <Text> de </Text>
+            {data?.student?.name}
+          </Text>
           <View className="mt-4 p-5 rounded-lg  bg-white elevation-lg">
             <Text className="mb-3">Informações Pessoais:</Text>
             <Text className="text-start text-subtitle">
-              Nascimento: 24/08/1968
+              Nascimento: {data?.birth_date}
             </Text>
             <Text className="text-start text-subtitle">
-              Contato: (89) 99922-222
+              Contato: {data?.contact}
             </Text>
             <Text className="text-start text-subtitle">
-              Email: Mariasousa@gmail.com
+              Email:{data?.email}
             </Text>
             <Text className="text-start text-subtitle">
-              Endereço: Rua Antonio Lisboa , 267
+              Endereço: {data?.address}
             </Text>
           </View>
           <View className=" flex-row justify-between space-x-1">
@@ -73,11 +79,17 @@ export function ProfileParentsScreen() {
             color={theme.primary}
             placeholder={'Perfil do Filho'}
             buttonFunction={() => {
-              navigation.navigate('studentProfile');
+              if (data?.student) {
+                navigation.navigate('studentProfile', {student: data?.student});
+              } else {
+                console.warn('Student não disponível');
+              }
             }}
           />
         </View>
       </View>
     </View>
   );
+
+  return loading === true ? <LoadingScreen /> : contentScreen;
 }

@@ -1,6 +1,6 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {getReviewIcon} from '../../../utils/constants/reviewIcons';
-import {ReviewItemModel} from '../../../domain/models/ReviewItem';
+import {ReviewItemModel} from '../../../models/ReviewItem';
 import Icon from '@react-native-vector-icons/fontawesome6';
 import {theme} from '../../../utils/constants/theme';
 import {formatDate} from '../../../utils/helpers/format_date_helper';

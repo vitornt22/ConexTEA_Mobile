@@ -7,23 +7,14 @@ import {
   View,
 } from 'react-native';
 import PagerView from 'react-native-pager-view';
+import {ChipsPageHook} from '../hooks/ChipsPageHooks';
 
 type ChipsPagerViewProps = {
   chips: any;
   style?: {};
 };
 export function ChipsPagerView({chips, style}: ChipsPagerViewProps) {
-  const pagerRef = useRef<PagerView>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const onChipPress = (index: number) => {
-    setActiveIndex(index);
-    pagerRef.current?.setPage(index);
-  };
-
-  const onPageChange = (e: any) => {
-    setActiveIndex(e.nativeEvent.position);
-  };
+  const {pagerRef, onChipPress, onPageChange, activeIndex} = ChipsPageHook();
 
   return (
     <View className="flex-1 bg-white">

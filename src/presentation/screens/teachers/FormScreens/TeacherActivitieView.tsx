@@ -9,6 +9,7 @@ import Icon from '@react-native-vector-icons/fontawesome6';
 import {ConfirmationDialog} from '../../../components/modals/ConfirmationDialog';
 import {InformationModal} from '../../../components/modals/InformationModal';
 import {teacher_check_in_information} from '../../../../utils/constants/information_teacher_test';
+import {ScrollView} from 'react-native-gesture-handler';
 
 export function TeacherActivitieView() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -26,7 +27,7 @@ export function TeacherActivitieView() {
 
   return (
     <CommonFormScreen title={'Registrar Atividades'} button={buttons}>
-      <View>
+      <ScrollView>
         <InformationModal
           text={teacher_check_in_information}
           modalVisible={{
@@ -35,6 +36,9 @@ export function TeacherActivitieView() {
           }}
         />
         <DropdownInput placeholder={'Selecione o aluno'} label="Aluno" />
+
+        <DropdownInput placeholder={'Participação'} label="Participação" />
+
         <DropdownInput
           placeholder={'Tipo de Atividade'}
           label="Tipo de Atividade"
@@ -55,7 +59,7 @@ export function TeacherActivitieView() {
           title={'Deseja Registrar essa atividade?'}
           subtitle={'A atividade Registrada '}
         />
-      </View>
+      </ScrollView>
     </CommonFormScreen>
   );
 }

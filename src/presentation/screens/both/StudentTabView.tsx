@@ -6,8 +6,16 @@ import {parentsHomeCards} from '../../../utils/constants/parents_home_cards';
 import {DefaultCard} from '../../components/DefaultCard';
 import {ScrollView} from 'react-native-gesture-handler';
 import {InformationSection} from '../../components/InformationSection';
+import {Student} from '../../../models/ParentModel';
 
-export function StudentProfileTabView({navigation}: any) {
+type StudentProfileTabViewProps = {
+  student: Student;
+  navigation: any;
+};
+export function StudentProfileTabView({
+  navigation,
+  student,
+}: StudentProfileTabViewProps) {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {key: 'first', title: 'Relatórios'},
@@ -35,22 +43,13 @@ export function StudentProfileTabView({navigation}: any) {
 
   const SecondRoute = () => (
     <ScrollView className="flex-1  ">
+      <InformationSection text={student.preferences} title={'Preferências'} />
       <InformationSection
-        text={
-          'Gosta de músicas infantis, brinquedos com luzes e bolhas de sabão. Ama atividades com pintura e água.'
-        }
-        title={'Preferências'}
-      />
-      <InformationSection
-        text={
-          'Sons agudos e ambientes com muitas pessoas causam desconforto; mudanças bruscas na rotina geram irritação.'
-        }
+        text={student.triggers_sensitivities[0]}
         title={'Gatilhos ou sensibilidades:'}
       />
       <InformationSection
-        text={
-          'Ouvir músicas calmas com fones de ouvido, sentar-se em local mais reservado, uso do cobertor sensorial.'
-        }
+        text={student.what_helps_to_calm_down}
         title={'O que ajuda a acalmar:'}
       />
       <View className="h-[100]" />

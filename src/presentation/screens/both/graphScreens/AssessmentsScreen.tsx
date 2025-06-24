@@ -1,34 +1,48 @@
 import {View} from 'react-native';
 import {StudentHeader} from '../../../components/headers/StudentHeader';
 import {ChipsPagerView} from '../../../components/ChipsPagerView';
-import {InsideOutRank} from './InsideOutRank';
 import {HabilitiesRank} from './HabilitiesRank';
 import {BehaviorRank} from './BehaviorRank';
 import {GenerateReportButton} from '../../../components/GenerationReportButton';
 import {evolutionReportText} from '../../../../data/mockups/evolutionReportText';
-import {useState} from 'react';
 import {InformationModal} from '../../../components/modals/InformationModal';
 import Icon from '@react-native-vector-icons/fontawesome6';
 import {theme} from '../../../../utils/constants/theme';
 import {assessmentsInformation} from '../../../../utils/constants/information_texts';
-import {width} from '../../../../utils/constants/screenSize';
+import {InsideOutRank} from './InsideOutRank';
+import {AssessmentScreenHook} from '../../../hooks/AssesmentsScreenHook';
+import LoadingScreen from '../../../components/LoadingScreen';
+import {studenHeaderMock} from '../../../../data/mockups/graphs';
 
 export function AssessmentsScreen({navigation}: any) {
-  const [modalVisible, setModalVisible] = useState(false);
+  const {data, loading, studentId, modalVisible} = AssessmentScreenHook();
 
   const chips = [
-    {name: 'Emoções', component: <InsideOutRank />},
-    {name: 'Habilidades', component: <HabilitiesRank />},
-    {name: 'Comportamento', component: <BehaviorRank />},
+    //  ADICIONAR EMOÇÔES AQUI
+    {
+      name: 'Emoções',
+      component: (
+        <InsideOutRank key={'emotions'} emotionReport={data?.emotions || []} />
+      ),
+    },
+    {
+      name: 'Habilidades',
+      component: (
+        <HabilitiesRank key={'habilities'} skillReport={data?.skills || []} />
+      ),
+    },
+    {
+      name: 'Comportamento',
+      component: (
+        <BehaviorRank key={'behaviors'} behaviors={data?.behaviors || []} />
+      ),
+    },
   ];
-  return (
+  const contentView = (
     <View className="bg-white p-5 flex-1">
       <InformationModal
         text={assessmentsInformation}
-        modalVisible={{
-          state: modalVisible,
-          setState: setModalVisible,
-        }}
+        modalVisible={modalVisible}
       />
       <View className="flex-row items-center justify-between">
         <GenerateReportButton
@@ -38,7 +52,7 @@ export function AssessmentsScreen({navigation}: any) {
           reportName={'Relatório de Evolução'}
         />
         <Icon
-          onPress={() => setModalVisible(true)}
+          onPress={() => modalVisible.setState(true)}
           style={{marginRight: 10}}
           size={20}
           color={theme.primary}
@@ -46,9 +60,10 @@ export function AssessmentsScreen({navigation}: any) {
           iconStyle="solid"
         />
       </View>
-      <StudentHeader />
+      <StudentHeader student={data?.student || studenHeaderMock} />
       <View className="h-3"></View>
       <ChipsPagerView chips={chips} style={{left: -15, width: '110%'}} />
     </View>
   );
+  return loading === true ? <LoadingScreen /> : contentView;
 }

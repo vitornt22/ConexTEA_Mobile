@@ -1,4 +1,4 @@
-import { ReviewItemModel } from "../../domain/models/ReviewItem";
+import { ReviewItemModel } from "../../models/ReviewItem";
 
 export const reviewItems: ReviewItemModel[]= [
   {

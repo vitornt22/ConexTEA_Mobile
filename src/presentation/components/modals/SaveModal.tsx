@@ -5,6 +5,7 @@ import Icon from '@react-native-vector-icons/fontawesome6';
 import {TextArea} from '../inputs/TextArea';
 import {NavigationProp} from '../../navigation/types';
 import {useNavigation} from '@react-navigation/native';
+import {DropdownInput} from '../inputs/DropDownInput';
 
 type SaveCheckInModalProps = {
   modalVisible: {
@@ -49,6 +50,7 @@ export function SaveCheckInModal({modalVisible}: SaveCheckInModalProps) {
             placeholder={'Descreva sobre o checkInEmocional'}
             label={''}
           />
+
           <DefaultButton
             height={52}
             color={theme.primary}

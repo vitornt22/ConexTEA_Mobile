@@ -1,19 +1,19 @@
 import {FlatList, View} from 'react-native';
-import {reviewItems} from '../../../data/mockups/reviews';
 import {ReviewListTile} from '../../components/listTiles/ReviewListTile';
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/types';
-import {ReviewItemModel} from '../../../domain/models/ReviewItem';
+import {ReviewItemModel} from '../../../models/ReviewItem';
 
 type AllReviewsProps = {
-  type: any;
+  type: string;
+  reviewItems: ReviewItemModel[];
 };
 type AllReviewsScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 const navigation = useNavigation<AllReviewsScreenNavigationProp>();
 
-export function AllReviews({type}: AllReviewsProps) {
+export function AllReviews({type, reviewItems}: AllReviewsProps) {
   var items;
 
   if (type == 'all') {
@@ -29,7 +29,9 @@ export function AllReviews({type}: AllReviewsProps) {
       <FlatList
         className="p-3 px-5"
         data={items}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) =>
+          item.othersInformations.id.toString() + item.Type
+        }
         renderItem={({item}) => {
           return (
             <ReviewListTile

@@ -4,21 +4,15 @@ import {Image, Text, View} from 'react-native';
 import {theme} from '../../../utils/constants/theme';
 import {LoginTextInput} from '../../components/inputs/LoginTextInput';
 import {DefaultButton} from '../../components/buttons/defaultButton';
-import {RouteProp, useRoute} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {RequestNewPassword} from '../../components/modals/RequestNewPassword';
 import {SetStateAction, useState} from 'react';
-import {RootStackParamList} from '../../navigation/types';
-
-type LoginRouteProp = RouteProp<RootStackParamList, 'Login'>;
+import {NavigationProp, RootStackParamList} from '../../navigation/types';
+import {useLoginScreenHook} from '../../hooks/LoginScreenHook';
 
 export function LoginScreen({navigation}: any) {
-  const route = useRoute<LoginRouteProp>(); // agora route.params tem o tipo certo
-  const {screenRoute = 'teacher'} = route.params || {};
-  const [modalVisible, setModalVisible] = useState(false); // Modal visível por padrão
-  const parentsText =
-    'Faça o login para acompanhar a evolução e progresso do seu filho na nossa escola.';
-  const teacherText =
-    'Faça o login para registrar e acompanhar a evolução dos seus alunos com TEA';
+  const {teacherText, parentsText, screenRoute, modalVisible} =
+    useLoginScreenHook();
 
   const teacher = (
     <Image
@@ -36,12 +30,7 @@ export function LoginScreen({navigation}: any) {
 
   return (
     <View className="flex-1 bg-white">
-      <RequestNewPassword
-        modalVisible={{
-          state: modalVisible,
-          setState: setModalVisible,
-        }}
-      />
+      <RequestNewPassword modalVisible={modalVisible} />
       <View className="bg-blue-500 h-[100%]">
         {screenRoute === 'teacher' ? teacher : family}
         <View className="absolute">
@@ -81,7 +70,7 @@ export function LoginScreen({navigation}: any) {
         />
         <View className="items-end mt-4">
           <Text
-            onPress={() => setModalVisible(true)}
+            onPress={() => modalVisible.setState(true)}
             className=" text-primary  text-sm font-semibold">
             Solicitar nova Senha
           </Text>

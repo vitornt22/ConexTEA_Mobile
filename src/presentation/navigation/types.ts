@@ -1,7 +1,10 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import { ReviewItemModel } from "../../domain/models/ReviewItem";
+import { ReviewItemModel } from "../../models/ReviewItem";
+import { RouteProp } from "@react-navigation/native";
+import { Student } from "../../models/ParentModel";
 
 export type NavigationProp = StackNavigationProp<RootStackParamList>;
+export type LoginRouteProp = RouteProp<RootStackParamList, 'Login'>;
 
 
 export type RootStackParamList = {
@@ -43,6 +46,6 @@ export type RootStackParamList = {
   teacherCheckInView:undefined
   teacherActivitieView:undefined
   teacherActionView:undefined
-  studentProfile:undefined
+  studentProfile:{student:Student}
   chatPage:undefined
 };

@@ -1,15 +1,21 @@
-import {ScrollView, Text, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {DefaultTitleHeader} from '../../../components/headers/defaultTitleHeader';
 import {InsideOutListTile} from '../../../components/listTiles/insideOutListTile';
-import {insideOutData} from '../../../../data/mockups/rankData';
+import {Emotions} from '../../../../models/EmoctionModel';
+import {useInsideOutRankHook} from '../../../hooks/InsideOutRankHook';
+import {CheckInModel} from '../../../../models/CheckInItem';
+import {EmotionReport} from '../../../../models/Graphs';
 
-export function InsideOutRank() {
+type InsideOutRankProps = {
+  emotionReport: EmotionReport[] | [];
+};
+export function InsideOutRank({emotionReport}: InsideOutRankProps) {
   return (
     <View className="flex-1  bg-white">
       <DefaultTitleHeader icon={false} title="Divertidamente" />
       <ScrollView className="mt-4 px-3">
-        {insideOutData.map((item: {id: any}) => (
-          <InsideOutListTile key={item.id} item={item} />
+        {emotionReport.map((item: any) => (
+          <InsideOutListTile key={item.id} item={item} typeTile={'insideOut'} />
         ))}
       </ScrollView>
     </View>

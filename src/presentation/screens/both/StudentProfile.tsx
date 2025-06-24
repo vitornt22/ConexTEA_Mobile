@@ -3,12 +3,18 @@ import {images} from '../../../utils/constants/images';
 import {FloatButton} from '../../components/buttons/FloatButton';
 import {theme} from '../../../utils/constants/theme';
 import {StudentProfileTabView} from './StudentTabView';
-import {NavigationProp} from '../../navigation/types';
-import {useNavigation} from '@react-navigation/native';
-import {evolutionReportText} from '../../../data/mockups/evolutionReportText';
+import {NavigationProp, RootStackParamList} from '../../navigation/types';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {
+  getAutismLevelLabel,
+  getSexLabel,
+  getSupportLevelLabel,
+} from '../../../utils/helpers/get_relationship_name';
 
 export function StudentProfile() {
   const navigation = useNavigation<NavigationProp>();
+  const route = useRoute<RouteProp<RootStackParamList, 'studentProfile'>>();
+  const {student} = route.params;
 
   return (
     <View className="flex-1  bg-white">
@@ -42,33 +48,25 @@ export function StudentProfile() {
       <View className="bg-white p-5 px-8">
         <View className="top-10">
           <Text className=" text text-primary font-bold text-2xl">
-            Prof. Antonia Maria de Sousa
+            {student.name}
           </Text>
           <View className="flex-row mb-3 justify">
-            <Text className="text-sm text-subtitle">12/03/2015</Text>
-            <Text className="text-sm text-subtitle">Feminino</Text>
-            <Text className="text-sm text-subtitle ">Feminino</Text>
+            <Text className="text-sm text-subtitle">{student.birthdate}</Text>
+            <Text className="ml-2 text-sm text-subtitle">
+              {getSexLabel(student.gender || '')}
+            </Text>
           </View>
-          <Text
-            onPress={() => {
-              navigation.navigate('customReport', {
-                text: evolutionReportText,
-                reportName: 'Relatório de Aluno',
-              });
-            }}
-            className="underline font-bold text-sm text-primary mb-2">
-            Gerar Relatório Personalizado
+
+          <Text className="text-sm text-subtitle ">
+            Nivel de apoio: {getSupportLevelLabel(student.support_level)}
           </Text>
           <Text className="text-sm text-subtitle ">
-            Nivel de apoio: Moderado
+            Nivel de Autismo: {getAutismLevelLabel(student.autism_level)}
           </Text>
-          <Text className="text-sm text-subtitle ">Nivel de Autismo: 1</Text>
-          <Text className="text-sm text-subtitle ">
-            Comunicação: Não verbal
-          </Text>
+          <Text className="text-sm text-subtitle ">Comunicação:</Text>
         </View>
       </View>
-      <StudentProfileTabView navigation={navigation} />
+      <StudentProfileTabView student={student} navigation={navigation} />
     </View>
   );
 }

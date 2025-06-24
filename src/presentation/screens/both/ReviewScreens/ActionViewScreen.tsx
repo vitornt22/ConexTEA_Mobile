@@ -4,6 +4,7 @@ import {RouteProp, useRoute} from '@react-navigation/native';
 import {ReviewItemRow} from '../../../components/ReviewItemRow';
 import {formatDate} from '../../../../utils/helpers/format_date_helper';
 import {getPictogramas} from '../../../../utils/constants/getImages';
+import {ReviewInformationCard} from '../../../components/ReviewInformationCard';
 
 type ActionViewScreenRouteProp = RouteProp<RootStackParamList, 'actionView'>;
 
@@ -28,23 +29,7 @@ export default function ActionViewScreen() {
       </View>
 
       {/* Informations Card */}
-      <View className="bg-white elevation-lg rounded-lg p-5">
-        <ReviewItemRow
-          iconName={'book-open-reader'}
-          title={'Disciplina'}
-          text={item?.subjectName}
-        />
-        <ReviewItemRow
-          iconName={'user'}
-          title={'Disciplina'}
-          text={item?.subjectName}
-        />
-        <ReviewItemRow
-          iconName={'calendar-days'}
-          title={'Data'}
-          text={formatDate(item?.date)}
-        />
-      </View>
+      <ReviewInformationCard item={item} />
       <View className="bg-white mt-4  elevation-lg rounded-lg p-5">
         <View className="items-start">
           <Text className="text-lg font-bold text-primary mb-1">

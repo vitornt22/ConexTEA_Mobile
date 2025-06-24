@@ -3,11 +3,12 @@ import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import Icon from '@react-native-vector-icons/fontawesome6';
 import {StudentHeader} from '../../components/headers/StudentHeader';
 import {theme} from '../../../utils/constants/theme';
+import {studenHeaderMock} from '../../../data/mockups/graphs';
 
 export function PeriodicReportsScreen() {
   return (
     <View className="flex-1 bg-white p-5">
-      <StudentHeader />
+      <StudentHeader student={studenHeaderMock} />
       <ScrollView>
         <View className="h-[300]">
           <View className=" bg-white rounded-lg elevation-lg mt-5 p-5">

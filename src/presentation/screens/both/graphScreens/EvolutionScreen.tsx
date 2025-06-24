@@ -1,35 +1,26 @@
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {StudentHeader} from '../../../components/headers/StudentHeader';
 import {DefaultTitleHeader} from '../../../components/headers/defaultTitleHeader';
 import SkillsEvolutionChart from '../../../components/charts/SkillsEvolutionChart';
-import {
-  atention,
-  compreension,
-  comunication,
-  interation,
-  resolutio,
-} from '../../../../data/mockups/evolutionData';
 import {ScrollView} from 'react-native-gesture-handler';
 import {evolutionReportText} from '../../../../data/mockups/evolutionReportText';
 import {GenerateReportButton} from '../../../components/GenerationReportButton';
-import {useState} from 'react';
 import {InformationModal} from '../../../components/modals/InformationModal';
 import {evolutionInformation} from '../../../../utils/constants/information_texts';
+import {useEvolutionScreenHook} from '../../../hooks/EvolutionScreenHook';
+import {studenHeaderMock} from '../../../../data/mockups/graphs';
 
 export function EvolutionScreen({navigation}: any) {
-  const [modalVisible, setModalVisible] = useState(false);
+  const {data, loading, studentId, modalVisible} = useEvolutionScreenHook();
   return (
     <ScrollView className="bg-white p-5">
-      <StudentHeader />
+      <StudentHeader student={data?.student || studenHeaderMock} />
       <InformationModal
         text={evolutionInformation}
-        modalVisible={{
-          state: modalVisible,
-          setState: setModalVisible,
-        }}
+        modalVisible={modalVisible}
       />
       <DefaultTitleHeader
-        iconFunction={() => setModalVisible(true)}
+        iconFunction={() => modalVisible.setState(true)}
         title={'Evolução das Habilidades'}
       />
       <GenerateReportButton
@@ -38,20 +29,26 @@ export function EvolutionScreen({navigation}: any) {
         title={'Gerar Relatório de Evolução'}
         reportName={'Relatório de Evolução'}
       />
-      <SkillsEvolutionChart chartData={interation} title={'Interação Social'} />
       <SkillsEvolutionChart
-        chartData={resolutio}
+        chartData={data?.reviews.interation}
+        title={'Interação Social'}
+      />
+      <SkillsEvolutionChart
+        chartData={data?.reviews.problemSolving}
         title={'Resolução de Problemas'}
       />
       <SkillsEvolutionChart
-        chartData={comunication}
+        chartData={data?.reviews.comunication}
         title={'Comunicação Funcional'}
       />
       <SkillsEvolutionChart
-        chartData={compreension}
+        chartData={data?.reviews.compreension}
         title={'Compreensão de Instruções'}
       />
-      <SkillsEvolutionChart chartData={atention} title={'Atenção e Foco'} />
+      <SkillsEvolutionChart
+        chartData={data?.reviews.autonomy}
+        title={'Autonomia'}
+      />
       <View className="h-32"></View>
     </ScrollView>
   );
