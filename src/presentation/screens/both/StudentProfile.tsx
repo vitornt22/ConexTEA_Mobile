@@ -33,7 +33,7 @@ export function StudentProfile() {
             buttonColor={'white'}
             textColor={theme.primary}
             iconName={'chart-bar'}
-            onPress={() => navigation.navigate('PEI')}
+            onPress={() => navigation.navigate('PEI', {studentId: student.id})}
           />
           <View className="w-3" />
           <FloatButton

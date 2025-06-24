@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, Alert} from 'react-native';
 import Slider from '@react-native-community/slider';
 import {theme} from '../../../../utils/constants/theme';
 import {DropdownInput} from '../../../components/inputs/DropDownInput';
@@ -10,11 +10,13 @@ import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '../../../navigation/types';
 import {InformationModal} from '../../../components/modals/InformationModal';
 import {teacher_assessment_information} from '../../../../utils/constants/information_teacher_test';
+import axios from 'axios';
+import api from '../../../../infra/services/api';
 
 type TipoAvaliacao = 'comportamento' | 'habilidades';
 type AvaliacaoState = Record<string, number>;
 
-const criteriosComportamento: string[] = [
+const criteriosComportamento = [
   'Regulação emocional',
   'Respeito ao Próximo',
   'Resistência a transições',
@@ -23,7 +25,7 @@ const criteriosComportamento: string[] = [
   'Pontualidade de Rotina',
 ];
 
-const criteriosHabilidades: string[] = [
+const criteriosHabilidades = [
   'Atenção e foco',
   'Interação Social',
   'Compreensão de instruções',
@@ -32,11 +34,18 @@ const criteriosHabilidades: string[] = [
   'Autonomia',
 ];
 
+// Exemplo de lista de alunos, você deve buscar via API
+const alunos = [
+  {label: 'João Silva', value: '1'},
+  {label: 'Maria Santos', value: '2'},
+];
+
 export default function TeacherAssessmentScreen() {
   const [comportamento, setComportamento] = useState<AvaliacaoState>({});
-  const [modalVisible, setModalVisible] = useState(false);
-
   const [habilidades, setHabilidades] = useState<AvaliacaoState>({});
+  const [modalVisible, setModalVisible] = useState(false);
+  const [alunoSelecionado, setAlunoSelecionado] = useState<string | null>(null);
+
   const navigation = useNavigation<NavigationProp>();
 
   const handleChange = (type: TipoAvaliacao, key: string, value: number) => {
@@ -44,6 +53,53 @@ export default function TeacherAssessmentScreen() {
       type === 'comportamento' ? setComportamento : setHabilidades;
     updater(prev => ({...prev, [key]: value}));
   };
+
+  async function handleSave() {
+    if (!alunoSelecionado) {
+      Alert.alert('Erro', 'Selecione um aluno antes de salvar');
+      return;
+    }
+
+    const payload = {
+      student: alunoSelecionado,
+      interation: habilidades['Interação Social'] || 1,
+      concentration: habilidades['Atenção e foco'] || 1,
+      autonomy: habilidades['Autonomia'] || 1,
+      comunication: habilidades['Comunicação Funcional'] || 1,
+      problemSolving: habilidades['Resolução de Problemas'] || 1,
+      compreension: habilidades['Compreensão de instruções'] || 1,
+      regulation: comportamento['Regulação emocional'] || 1,
+      respect: comportamento['Respeito ao Próximo'] || 1,
+      resistance: comportamento['Resistência a transições'] || 1,
+      challenges: comportamento['Comportamentos Desafiadores'] || 1,
+      participation: comportamento['Participação Tranquila'] || 1,
+      punctuality: comportamento['Pontualidade de Rotina'] || 1,
+    };
+
+    try {
+      const response = await api.post('reviews/review/create/', payload);
+
+      if (response.status === 201 || response.status === 200) {
+        Alert.alert('Sucesso', 'Avaliação salva com sucesso!');
+        navigation.goBack();
+      } else {
+        Alert.alert(
+          'Erro',
+          `Resposta inesperada do servidor: ${response.status}`,
+        );
+      }
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data
+          ? JSON.stringify(error.response.data)
+          : error.message;
+        Alert.alert('Erro ao salvar', message);
+      } else {
+        Alert.alert('Erro', 'Não foi possível salvar a avaliação.');
+      }
+      console.error(error);
+    }
+  }
 
   return (
     <ScrollView contentContainerStyle={{padding: 16}} className="space-y-6">
@@ -60,13 +116,23 @@ export default function TeacherAssessmentScreen() {
       />
 
       <View className="bg-white mt-3 p-4 rounded-xl elevation-lg mb-3">
-        <DropdownInput placeholder={'Selecione o aluno'} label="Aluno" />
+        <DropdownInput
+          placeholder={'Selecione o aluno'}
+          label="Aluno"
+          data={alunos}
+          value={alunoSelecionado}
+          onChange={setAlunoSelecionado}
+        />
       </View>
-      {/* Card Comportamentos */}
+
+      {/* Cards Comportamento e Habilidades seguem iguais */}
+
+      {/* ... (seu código dos sliders comportamentais e habilidades) */}
+
       <View className="bg-white p-4 rounded-xl elevation-lg">
         <Text className="text-xl text-primary font-bold ">Comportamentos</Text>
         <Text className="text-md text-subtitle  mb-3">
-          Avalies o comportamento do aluno
+          Avalie o comportamento do aluno
         </Text>
 
         <Text className="text-md text-subtitle">
@@ -99,11 +165,10 @@ export default function TeacherAssessmentScreen() {
         ))}
       </View>
 
-      {/* Card Habilidades */}
       <View className="bg-white mt-4  p-4 rounded-xl elevation-lg">
         <Text className="text-xl text-primary font-bold ">Habilidades</Text>
         <Text className="text-md text-subtitle  mb-3">
-          Avalies as Habilidades do aluno
+          Avalie as Habilidades do aluno
         </Text>
         <Text className="text-md text-subtitle">
           Obs: Arraste os sliders para atribuir a nota.
@@ -133,13 +198,14 @@ export default function TeacherAssessmentScreen() {
           </View>
         ))}
       </View>
+
       <DefaultButton
         icon={<Icon name="floppy-disk" size={15} color={'white'} />}
         color={theme.primary}
         placeholder={'Salvar'}
-        buttonFunction={() => navigation.goBack()}
+        buttonFunction={handleSave}
       />
-      <View className="h-[50]" />
+      <View style={{height: 50}} />
     </ScrollView>
   );
 }

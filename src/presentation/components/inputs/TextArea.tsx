@@ -1,13 +1,22 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Text, TextInput, View} from 'react-native';
 import {theme} from '../../../utils/constants/theme';
 
-type TextAreaProps = {placeholder: string; label: string};
-export function TextArea({placeholder, label}: TextAreaProps) {
-  const [text, setText] = useState('');
+type TextAreaProps = {
+  placeholder: string;
+  label: string;
+  value: string;
+  onChangeText: (text: string) => void;
+};
 
+export function TextArea({
+  placeholder,
+  label,
+  value,
+  onChangeText,
+}: TextAreaProps) {
   return (
-    <View className="">
+    <View>
       <Text className="mb-2 text-primary text-lg font-bold">{label}</Text>
       <TextInput
         style={{color: theme.primary}}
@@ -17,8 +26,8 @@ export function TextArea({placeholder, label}: TextAreaProps) {
         multiline
         numberOfLines={4}
         textAlignVertical="top"
-        value={text}
-        onChangeText={setText}
+        value={value}
+        onChangeText={onChangeText}
       />
     </View>
   );

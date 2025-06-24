@@ -4,10 +4,7 @@ import {Image, Text, View} from 'react-native';
 import {theme} from '../../../utils/constants/theme';
 import {LoginTextInput} from '../../components/inputs/LoginTextInput';
 import {DefaultButton} from '../../components/buttons/defaultButton';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {RequestNewPassword} from '../../components/modals/RequestNewPassword';
-import {SetStateAction, useState} from 'react';
-import {NavigationProp, RootStackParamList} from '../../navigation/types';
 import {useLoginScreenHook} from '../../hooks/LoginScreenHook';
 
 export function LoginScreen({navigation}: any) {

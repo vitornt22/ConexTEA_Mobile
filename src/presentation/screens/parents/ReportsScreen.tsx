@@ -43,7 +43,7 @@ export function ReportsScreen() {
         primaryColor={theme.primaryGreen}
         secondaryColor={theme.secondaryGreen}
         thirdColor={'black'}
-        buttonFunction={() => navigation.navigate('PEI')}
+        buttonFunction={() => navigation.navigate('PEI', {studentId: 1})}
       />
       <DefaultCard
         image="tasks"

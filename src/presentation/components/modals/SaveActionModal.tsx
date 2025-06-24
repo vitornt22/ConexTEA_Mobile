@@ -8,6 +8,8 @@ import {useNavigation} from '@react-navigation/native';
 import {DropdownInput} from '../inputs/DropDownInput';
 
 type SaveActionModalProps = {
+  onClickSave?: () => void;
+
   modalVisible: {
     state: boolean;
     setState: React.Dispatch<React.SetStateAction<boolean>>;

@@ -2,31 +2,28 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 
-const data = [
-  {label: 'Item 1', value: '1'},
-  {label: 'Item 2', value: '2'},
-  {label: 'Item 3', value: '3'},
-  {label: 'Item 4', value: '4'},
-  {label: 'Item 5', value: '5'},
-  {label: 'Item 6', value: '6'},
-  {label: 'Item 7', value: '7'},
-  {label: 'Item 8', value: '8'},
-];
 type DropdownInputProps = {
+  data: {label: string; value: string}[];
   placeholder: string;
   label?: string;
+  value: string | null;
+  onChange: (value: string) => void;
   style?: {};
 };
+
 export const DropdownInput = ({
   label,
   style,
   placeholder,
+  data,
+  value, // vem do pai
+  onChange, // callback para atualizar valor no pai
 }: DropdownInputProps) => {
-  const [value, setValue] = useState(null);
-
   return (
     <View className="my-2" style={{...style}}>
-      <Text className="mb-2 text-lg text-primary font-bold">{label}</Text>
+      {label && (
+        <Text className="mb-2 text-lg text-primary font-bold">{label}</Text>
+      )}
       <Dropdown
         dropdownPosition="bottom"
         style={styles.dropdown}
@@ -41,9 +38,9 @@ export const DropdownInput = ({
         valueField="value"
         placeholder={placeholder}
         searchPlaceholder="Pesquisar"
-        value={value}
-        onChange={item => {
-          setValue(item.value);
+        value={value} // controlled value vindo do pai
+        onChange={(item: any) => {
+          onChange(item.value); // chama callback no pai para atualizar valor
         }}
       />
     </View>

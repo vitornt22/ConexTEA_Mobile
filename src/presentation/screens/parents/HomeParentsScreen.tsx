@@ -48,7 +48,7 @@ export function HomeParentsScreen() {
             />
           </View>
         </View>
-        <InsideOutRankInitial item={data?.emotions} />
+        <InsideOutRankInitial initialData={data} />
       </ScrollView>
     </View>
   );

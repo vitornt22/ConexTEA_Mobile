@@ -6,9 +6,15 @@ import {useNavigation} from '@react-navigation/native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {FloatButton} from '../../components/buttons/FloatButton';
 import {theme} from '../../../utils/constants/theme';
+import {ProfileTeacherScreenHook} from '../../hooks/ProfileTeacherScreenHook';
+import {
+  getSubjectLabel,
+  getWorkShiftLabel,
+} from '../../../utils/constants/getSubject';
 
 export function ProfileTeacherScreen() {
-  const navigation = useNavigation<NavigationProp>();
+  const {data, loading, navigation, studentId} = ProfileTeacherScreenHook();
+  const teacher = data?.teacher;
 
   return (
     <View className="flex-1 bg-white">
@@ -33,59 +39,63 @@ export function ProfileTeacherScreen() {
       <View className="p-12 absolute bottom-0 self-center bg-white h-[80%] w-[100%] rounded-t-[55]">
         <View className="top-10">
           <Text className=" text text-primary font-bold text-2xl">
-            Prof. Antonia Maria de Sousa
+            Prof. {teacher?.name}
           </Text>
           <View className="flex-row mb-3 justify">
-            <Text className="text-lg ">ID: 10239282</Text>
+            <Text className="text-lg ">ID: {teacher?.registration_id}</Text>
             <Text className="text-lg ml-7 "> Atuação: 4 anos</Text>
           </View>
         </View>
         <ScrollView className="my-10 ">
           <View className="flex-row justify-between">
             <StatisticCard
-              count={20}
-              title={'Alunos'}
-              iconName={'user-group'}
+              count={data?.related_data.activity_count || 0}
+              title={'Atividades'}
+              iconName={'note-sticky'}
               iconType="solid"
             />
-            <StatisticCard count={10} title={'Chat'} iconName={'comments'} />
             <StatisticCard
-              count={20}
-              title={'Registros'}
+              count={data?.related_data.checkin_count || 0}
+              title={'Check-Ins'}
+              iconType="solid"
+              iconName={'check'}
+            />
+            <StatisticCard
+              count={data?.related_data.review_count || 0}
+              title={'Avaliações'}
               iconName={'book'}
               iconType="solid"
             />
           </View>
           <View className="mt-4 mx-1 p-5 rounded-lg  bg-white elevation-lg">
-            <Text className="mb-3 ">Disciplinas</Text>
-            {['Geografia', 'História'].map((item, index) => (
-              <Text className="text-subtitle" key={index}>
-                {item}
-              </Text>
-            ))}
+            <Text className="mb-3 ">Disciplina</Text>
+
+            <Text className="text-subtitle">
+              {getSubjectLabel(teacher?.subject || '')}
+            </Text>
           </View>
           <View className="mt-4 mx-1 p-5 rounded-lg  bg-white elevation-lg">
             <Text className="mb-3 ">Turnos de Trabalho </Text>
-            {['Manhã', 'Tarde'].map((item, index) => (
-              <Text className="text-subtitle" key={index}>
-                {item}
-              </Text>
-            ))}
+            <Text className="text-subtitle">
+              {getWorkShiftLabel(teacher?.work_shift || '')}
+            </Text>
           </View>
           <View className="mt-4 mx-1 p-5 rounded-lg  bg-white elevation-lg">
             <Text className="mb-3 ">Especialização em Educação Especial? </Text>
-            <Text className="text-subtitle">Não</Text>
+            <Text className="text-subtitle">
+              {teacher?.has_specialization == true ? 'Possui' : 'Não Possui'}
+            </Text>
           </View>
           <View className="mx-1 my-4 p-5 bg-white rounded-lg   elevation-lg">
             <Text className="mb-3">Informações Pessoais:</Text>
             <Text className="text-start text-subtitle">
-              Nascimento: 24/08/1968
+              Nascimento: {teacher?.birthdate}
             </Text>
             <Text className="text-start text-subtitle">
-              Email: Mariasousa@gmail.com
+              Email: {teacher?.email}
             </Text>
             <Text className="text-start text-subtitle">
-              Endereço: Rua Antonio Lisboa , 267
+              Endereço: {teacher?.address}
             </Text>
           </View>
         </ScrollView>

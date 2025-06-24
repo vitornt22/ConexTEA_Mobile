@@ -15,7 +15,7 @@ export function HomeTeacherScreen() {
   return (
     <ScrollView className="px-7 bg-white">
       <Text className="mt-3 text-2xl text-blueText font-semibold">
-        Bem Vinda, Mãe da Valentina
+        Bem Vindo(A), {data?.teacher.name}
       </Text>
       <CardsCarousel type="teacher" navigation={navigation} />
       <View>

@@ -3,7 +3,6 @@ import {InitialScreen} from '../screens/both/InitialScreen';
 import {InitialScreenHeader} from '../components/headers/InitialScreenHeader';
 import {BottomNavigationParentsScreen} from './BottomNavigationParentsScreen';
 import {BottomNavigationTeacherScreen} from './BottomNavigationTeacherScreen';
-import {LoginScreen} from '../screens/both/LoginScreen';
 import {ChatBotScreen} from '../screens/both/ChatBotScreen';
 import {AssessmentsScreen} from '../screens/both/graphScreens/AssessmentsScreen';
 import {EvolutionScreen} from '../screens/both/graphScreens/EvolutionScreen';
@@ -25,6 +24,7 @@ import {StudentProfile} from '../screens/both/StudentProfile';
 import {TeacherActionView} from '../screens/teachers/FormScreens/TeacherActionView';
 import TeacherAssessmentScreen from '../screens/teachers/FormScreens/TeacherAssessmentScreen';
 import {ChatPageScreen} from '../screens/both/ChatPageScreen';
+import {LoginScreen} from '../screens/both/LoginScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 

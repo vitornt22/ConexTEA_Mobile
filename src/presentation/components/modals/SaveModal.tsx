@@ -8,12 +8,16 @@ import {useNavigation} from '@react-navigation/native';
 import {DropdownInput} from '../inputs/DropDownInput';
 
 type SaveCheckInModalProps = {
+  onClickSave: () => void;
   modalVisible: {
     state: boolean;
     setState: React.Dispatch<React.SetStateAction<boolean>>;
   };
 };
-export function SaveCheckInModal({modalVisible}: SaveCheckInModalProps) {
+export function SaveCheckInModal({
+  modalVisible,
+  onClickSave,
+}: SaveCheckInModalProps) {
   const navigation = useNavigation<NavigationProp>();
 
   return (
@@ -56,6 +60,7 @@ export function SaveCheckInModal({modalVisible}: SaveCheckInModalProps) {
             color={theme.primary}
             placeholder={'Salvar Check-In'}
             buttonFunction={() => {
+              onClickSave();
               modalVisible.setState(false);
               navigation.goBack();
             }}

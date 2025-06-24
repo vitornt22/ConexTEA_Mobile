@@ -48,7 +48,15 @@ export function BottomNavigationTeacherScreen() {
 
   return (
     <Provider>
-      {index == 0 ? <HomeParentsHeader /> : <BottomBarDefaultHeader />}
+      {index == 0 ? (
+        <HomeParentsHeader
+          name={'Maria Antonia'}
+          year={2025}
+          schoolClass={'4'}
+        />
+      ) : (
+        <BottomBarDefaultHeader />
+      )}
 
       <BottomNavigation
         navigationState={{index, routes}}

@@ -15,7 +15,7 @@ export type RootStackParamList = {
   chatbot: undefined;
   assessments: undefined;
   evolution: undefined;
-  PEI: undefined;
+  PEI: {studentId:number};
   activities: undefined;
   periodicReports: undefined;
   customReport: {

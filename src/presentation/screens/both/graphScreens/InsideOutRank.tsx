@@ -5,6 +5,7 @@ import {Emotions} from '../../../../models/EmoctionModel';
 import {useInsideOutRankHook} from '../../../hooks/InsideOutRankHook';
 import {CheckInModel} from '../../../../models/CheckInItem';
 import {EmotionReport} from '../../../../models/Graphs';
+import {InsideOutInitialListTile} from '../../../components/listTiles/InsideOutInitialListTile';
 
 type InsideOutRankProps = {
   emotionReport: EmotionReport[] | [];
@@ -15,7 +16,7 @@ export function InsideOutRank({emotionReport}: InsideOutRankProps) {
       <DefaultTitleHeader icon={false} title="Divertidamente" />
       <ScrollView className="mt-4 px-3">
         {emotionReport.map((item: any) => (
-          <InsideOutListTile key={item.id} item={item} typeTile={'insideOut'} />
+          <InsideOutInitialListTile key={item.id} item={item} />
         ))}
       </ScrollView>
     </View>
