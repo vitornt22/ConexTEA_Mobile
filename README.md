@@ -8,6 +8,9 @@ Este repositório contém o código-fonte do **frontend mobile** desenvolvido em
 👉 O login atualmente **não está funcionando**, mas as demais telas estão acessíveis normalmente.
 Devido o pouco tempo, carga horária de trabalho e a proporção da proposta, não conseguimos concluir a integração com a inteligência artificial, mas
 já deixamos as telas mocadas.
+Você pode checar uma versão funcional demonstrativa das telas, baixando o APK na nossa landing page
+
+https://conextea-landing-page.vercel.app/
 
 ## 🚀 Como rodar o projeto
 
@@ -15,16 +18,7 @@ Siga os passos abaixo para executar a aplicação no seu ambiente local.
 
 ---
 
-### 1️⃣ Clone o repositório
-
-```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
-```
-
----
-
-### 2️⃣ Instale as dependências
+### 2️ Instale as dependências
 
 ```bash
 npm install
