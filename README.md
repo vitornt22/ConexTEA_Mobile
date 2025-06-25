@@ -1,97 +1,78 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 📱 Aplicação React Native
 
-# Getting Started
+Este repositório contém o código-fonte do **frontend mobile** desenvolvido em **React Native**.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+⚠️ **Importante:** Antes de rodar o aplicativo, o backend em **Python** deve estar rodando na porta **8004**.
 
-## Step 1: Start Metro
+👉 O backend é necessário para o funcionamento completo da aplicação.  
+👉 O login atualmente **não está funcionando**, mas as demais telas estão acessíveis normalmente.
+Devido o pouco tempo, carga horária de trabalho e a proporção da proposta, não conseguimos concluir a integração com a inteligência artificial, mas
+já deixamos as telas mocadas.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 🚀 Como rodar o projeto
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+Siga os passos abaixo para executar a aplicação no seu ambiente local.
 
-```sh
-# Using npm
-npm start
+---
 
-# OR using Yarn
-yarn start
+### 1️⃣ Clone o repositório
+
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
 ```
 
-## Step 2: Build and run your app
+---
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+### 2️⃣ Instale as dependências
 
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+npm install
 ```
 
-### iOS
+ou, se preferir usar **yarn**:
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```bash
+yarn
 ```
 
-Then, and every time you update your native dependencies, run:
+---
 
-```sh
-bundle exec pod install
+### 3️⃣ Rode a aplicação
+
+#### 📲 Para dispositivos Android (emulador ou dispositivo físico conectado)
+
+```bash
+npx react-native run-android
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+#### 🖥️ Para iniciar o Metro Bundler manualmente
 
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+```bash
+npx react-native start
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+---
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## ⚡ Executar o APK direto no dispositivo
 
-## Step 3: Modify your app
+Se você já tem o APK gerado (geralmente disponível na pasta `android/app/build/outputs/apk/`), basta instalar no dispositivo:
 
-Now that you have successfully run the app, let's make changes!
+```bash
+adb install android/app/build/outputs/apk/debug/app-debug.apk
+```
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+👉 **Lembre-se:** O dispositivo precisa estar conectado com a depuração USB habilitada.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+---
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## 💡 Observações
 
-## Congratulations! :tada:
+✅ Certifique-se de estar com o ambiente React Native configurado (Node.js, Java JDK, Android Studio / emulador, etc).  
+✅ O Metro Bundler deve estar rodando ao executar o APK, para que o app consiga carregar o bundle JavaScript na primeira vez.
 
-You've successfully run and modified your React Native App. :partying_face:
+---
 
-### Now what?
+## 🌐 Links úteis
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- [Documentação oficial do React Native](https://reactnative.dev/docs/environment-setup)
